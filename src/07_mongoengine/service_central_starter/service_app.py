@@ -1,5 +1,11 @@
+
+import nosql.mongo_setup as mongo_setup
+from service_central_starter.nosql.car import Car
+
+
 def main():
     print_header()
+    config_mongo()
     user_loop()
 
 
@@ -12,6 +18,8 @@ def print_header():
     print('----------------------------------------------')
     print()
 
+def config_mongo():
+    mongo_setup.global_init()
 
 def user_loop():
     while True:
@@ -37,6 +45,30 @@ def user_loop():
 
 
 def add_car():
+    """
+    model = mongoengine.StringField()
+    make = mongoengine.StringField()
+    year = mongoengine.IntField()
+    mileage = mongoengine.FloatField()
+    vi_number = mongoengine.StringField()
+    :return:
+    """
+    model = input("What is model?")
+    make = input("What is make?")
+    year = input("Year built?")
+    mileage = float(input("Mileage?"))
+    vin = input("VIN")
+
+    car = Car()
+    car.year = year
+    car.make = make
+    car.model = model
+    car.mileage = mileage
+    car.vin = vin
+
+    car.save()
+
+
     print("TODO: add_car")
 
 

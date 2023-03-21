@@ -7,7 +7,7 @@ def multiziperator(*iterables):
 
     # Gather iterator list from iterables
     iterators = [iter(it) for it in iterables]
-    print(iterators)
+
     # iterate over objects iterators
     while iterators:
         iters_results = []
