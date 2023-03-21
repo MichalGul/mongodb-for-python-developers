@@ -32,7 +32,7 @@ book = db.books.find_one({'isbn': '73738584947384'})
 print(book)
 
 # Edit without getting whole object from document -> use special operators $addToSet
-db.books.update_one({'isbn': '181819884728473'}, {'$addToSet': {'favorited_by': 120}})
+db.books.update_one({'isbn': '181819884728473'}, {'$addToSet': {'wwwwwww_by': 120}})
 book = db.books.find_one({'isbn': '181819884728473'})
 print(book)
 
