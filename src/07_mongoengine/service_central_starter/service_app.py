@@ -1,5 +1,7 @@
 
 import nosql.mongo_setup as mongo_setup
+from nosql.engine import Engine
+from nosql.servicehistory import ServiceHistory
 from service_central_starter.nosql.car import Car
 
 
@@ -56,24 +58,31 @@ def add_car():
     model = input("What is model?")
     make = input("What is make?")
     year = input("Year built?")
-    mileage = float(input("Mileage?"))
-    vin = input("VIN")
 
     car = Car()
     car.year = year
     car.make = make
     car.model = model
-    car.mileage = mileage
-    car.vin = vin
 
+    engine = Engine()
+    engine.horsepower = 600
+    engine.mpg = 20
+    engine.liters = 5.0
+    car.engine = engine
     car.save()
 
 
-    print("TODO: add_car")
+    print("add_car")
 
 
 def list_cars():
-    print("TODO: list_cars")
+    cars = Car.objects.order_by("-year")
+    for car in cars:
+        print(f"{car.make} -- {car.model} with vin {car.vi_number} year -> {car.year}")
+        print(f"{len(car.service_history)} of service records")
+        for s in car.service_history:
+            print(f"{s.price} * $___{s.description}")
+    print("list_cars")
 
 
 def find_car():
@@ -81,8 +90,20 @@ def find_car():
 
 
 def service_car():
-    print("TODO: service_car")
+    vin = input("What is VIN to service?")
+    car = Car.objects().filter(vi_number=vin).first()
+    if not car:
+        print(f"car with {vin} not found")
+        return
 
+    print(f"We will service car {car.make}")
+    service = ServiceHistory()
+    service.price = float(input("What is price?"))
+    service.description = input("What type of service is this?")
+    service.customer_rating = input("Customer rating? [1-5] ")
+
+    car.service_history.append(service)
+    car.save()
 
 if __name__ == '__main__':
     main()
