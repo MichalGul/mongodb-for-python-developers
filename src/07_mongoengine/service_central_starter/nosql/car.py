@@ -15,7 +15,7 @@ class Car(mongoengine.Document):
 
     # Sub document
     engine = mongoengine.EmbeddedDocumentField(Engine, required=True)
-    # Embede service history list
+    # Embeded service history list
     service_history = mongoengine.EmbeddedDocumentListField(ServiceHistory)
 
 
